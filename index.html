@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>前世人物志 · 你与哪位历史人物相似</title>
+<style>
+:root{
+  --paper:#F4F1EA; --card:#FFFDF8; --ink:#231E19; --sub:#7A7066;
+  --line:rgba(35,30,25,.12); --accent:#6B5DB8; --accent2:#9180CC; --gold:#A98753;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{
+  margin:0;padding:0;background:var(--paper);color:var(--ink);
+  font-family:"PingFang SC","Microsoft YaHei","Segoe UI",Arial,sans-serif;
+  line-height:1.6;-webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(rgba(35,30,25,.045) .8px,transparent .8px);
+  background-size:22px 22px;
+}
+.wrap{max-width:640px;margin:0 auto;padding:34px 22px 56px}
+.kicker{font-size:11px;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;font-weight:600}
+h1{font-family:Georgia,"Songti SC","SimSun",serif;font-size:34px;line-height:1.35;margin:14px 0 12px;font-weight:600;letter-spacing:.01em}
+h1 i{font-style:italic;color:var(--accent);position:relative}
+h1 i:after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:2px;background:linear-gradient(90deg,var(--accent2),transparent)}
+h2{font-family:Georgia,"Songti SC","SimSun",serif;font-size:22px;font-weight:600;margin:0 0 10px;line-height:1.45}
+h3{font-size:13px;letter-spacing:.1em;color:var(--sub);font-weight:600;margin:26px 0 10px}
+.lead{font-size:14.5px;color:#4A423A;margin:0 0 18px}
+.tip{font-size:12.5px;color:var(--sub);margin:14px 0 0}
+.center{text-align:center}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 4px}
+.chips span{flex:1 1 128px;min-width:0;padding:10px 12px;background:rgba(107,93,184,.07);border:1px solid var(--line);border-radius:10px;font-size:13px}
+.chips span b{display:block;font-size:12px;color:var(--accent);font-weight:600;margin-bottom:2px}
+.effects td{padding:8px 10px;font-size:12.5px;border-bottom:1px solid var(--line)}
+.effects td:first-child{color:var(--sub);white-space:nowrap}
+button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
+.primary{width:100%;margin-top:22px;padding:15px;border-radius:12px;color:#fff;font-size:15.5px;font-weight:600;letter-spacing:.04em;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 10px 26px rgba(107,93,184,.28)}
+.primary:active{transform:translateY(1px)}
+.ghost{width:100%;margin-top:30px;padding:13px;border-radius:12px;border:1px solid var(--line);color:var(--sub);font-size:14px;background:rgba(255,255,255,.6)}
+.step{font-size:11.5px;letter-spacing:.16em;color:var(--gold);margin-bottom:12px}
+.genders{display:flex;flex-direction:column;gap:10px;margin-top:18px}
+.gender{display:flex;align-items:center;gap:12px;padding:14px;text-align:left;border:1px solid var(--line);border-radius:13px;background:var(--card);transition:.18s}
+.gender:hover{border-color:var(--accent2);box-shadow:0 6px 18px rgba(107,93,184,.13);transform:translateY(-1px)}
+.gm{flex:0 0 38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;
+  background:linear-gradient(135deg,var(--accent2),var(--accent))}
+.gender strong{display:block;font-size:15px}
+.gender small{display:block;font-size:12px;color:var(--sub);margin-top:2px}
+.bar{height:3px;background:rgba(35,30,25,.09);border-radius:2px;overflow:hidden}
+.bar span{display:block;height:100%;width:0;border-radius:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .3s ease}
+.qmeta{display:flex;justify-content:space-between;font-size:11.5px;color:var(--sub);margin:12px 0 22px;letter-spacing:.06em}
+.qtext{font-family:Georgia,"Songti SC","SimSun",serif;font-size:24px;line-height:1.5;font-weight:600;margin:0 0 22px}
+.opts{display:flex;flex-direction:column;gap:11px}
+.opt{display:flex;align-items:center;gap:12px;padding:15px 16px;text-align:left;border:1px solid var(--line);border-radius:12px;background:var(--card);font-size:14.5px;transition:.16s}
+.opt:hover{border-color:var(--accent2);background:#fff}
+.opt .k{flex:0 0 22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--accent);background:rgba(107,93,184,.12)}
+.rname{font-family:Georgia,"Songti SC","SimSun",serif;font-size:40px;font-weight:700;margin:8px 0 6px;letter-spacing:.06em}
+.rmeta{font-size:13px;color:var(--sub);letter-spacing:.08em}
+.pill{display:inline-block;margin:16px 0 0;padding:6px 14px;border-radius:99px;font-size:13px;color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent2))}
+.quote{margin:22px 0 0;padding:18px 18px 18px 22px;border-left:3px solid var(--gold);background:rgba(169,135,83,.08);border-radius:0 12px 12px 0;font-family:Georgia,"Songti SC",serif;font-size:16px;color:#4A423A}
+.quote span{display:block;font-size:11px;letter-spacing:.16em;color:var(--gold);margin-bottom:6px;font-family:inherit}
+.dim{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+.dim .lab{flex:0 0 44px;font-size:12.5px;color:var(--sub)}
+.dim .track{flex:1 1 auto;height:7px;background:rgba(35,30,25,.08);border-radius:99px;overflow:hidden}
+.dim .track i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,rgba(107,93,184,.55),var(--accent));transition:width .5s ease}
+.dim .val{flex:0 0 34px;text-align:right;font-size:12px;color:var(--accent);font-weight:600}
+.note{font-size:13.5px;color:#4A423A;margin:0;padding:12px 14px;background:rgba(107,93,184,.06);border-radius:10px}
+.hidden{display:none}
+.lockcard{max-width:420px;margin:60px auto 0;text-align:center;padding:34px 26px;background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:0 24px 60px rgba(35,30,25,.10)}
+.lockicon{width:72px;height:72px;margin:0 auto 18px;border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:32px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 8px 28px rgba(107,93,184,.35)}
+.code-row{display:flex;gap:8px;margin-top:20px}
+.code-row input{flex:1 1 auto;min-width:0;padding:13px 14px;font-size:15px;letter-spacing:.14em;border:1px solid var(--line);border-radius:11px;background:#fff;color:var(--ink);outline:none;text-align:center}
+.code-row input:focus{border-color:var(--accent2);box-shadow:0 0 0 3px rgba(145,128,204,.15)}
+.code-row button{flex:0 0 auto;padding:0 20px;border-radius:11px;color:#fff;font-size:14px;font-weight:600;background:linear-gradient(135deg,var(--accent),var(--accent2))}
+.err{min-height:18px;margin:10px 0 0;font-size:12.5px;color:#C4573F}
+.hint{font-size:11.5px;color:#9C948A;margin-top:6px;letter-spacing:.08em}
+@media(max-width:400px){
+  h1{font-size:27px} .rname{font-size:32px} .qtext{font-size:20px} .wrap{padding:24px 16px 40px}
+  .code-row{flex-direction:column} .code-row button{padding:13px}
+}
+</style>
+</head>
+<body>
+
+<div id="lock" class="wrap">
+  <div class="lockcard" style="margin-top:0">
+    <div class="lockicon">🔐</div>
+    <div class="kicker">FIGURE ATLAS · PRIVATE ARCHIVE</div>
+    <h2 style="margin-top:12px">访问验证</h2>
+    <p class="tip center" style="margin-top:4px">这是一份有权限的人物档案测试，请输入四位访问码解锁。</p>
+    <div class="code-row">
+      <input id="code" maxlength="4" inputmode="numeric" placeholder="四位访问码">
+      <button id="unlock">立即解锁</button>
+    </div>
+    <div id="err" class="err"></div>
+    <div class="hint">演示访问码：8888</div>
+  </div>
+</div>
+
+<div id="intro" class="wrap hidden">
+  <div class="kicker">FIGURE ATLAS · ANCIENT ARCHIVE</div>
+  <h1>你与哪位<i>历史人物</i>相似？</h1>
+  <p class="lead">通过一组情境选择，读取你的决断、洞察、表达与担当。系统将从清朝以前的中国历史人物中，为你找出最相似的那一位。</p>
+  <div class="chips">
+    <span><b>古代群像</b>历代风云人物</span>
+    <span><b>男女皆有</b>多元角色</span>
+    <span><b>多维分析</b>性格建模</span>
+    <span><b>快速完成</b>即时出档案</span>
+  </div>
+  <p class="tip">测试说明：没有标准答案，请选择最接近真实自己的反应。答案会直接参与人物能力向量计算。</p>
+  <button class="primary" id="start">开始测试</button>
+</div>
+
+<div id="pref" class="wrap hidden">
+  <div class="step">第一步 · 档案映射偏好</div>
+  <h2>选择你更有代入感的人物方向</h2>
+  <p class="tip center">这只影响最终人物候选范围，不影响答题内容与分数计算。</p>
+  <div class="genders">
+    <button class="gender" data-g="female"><span class="gm">女</span><span><strong>女性人物优先</strong><small>从女性历史人物中寻找最相似的你</small></span></button>
+    <button class="gender" data-g="male"><span class="gm">男</span><span><strong>男性人物优先</strong><small>从男性历史人物中寻找最相似的你</small></span></button>
+    <button class="gender" data-g="all"><span class="gm">皆</span><span><strong>不限性别</strong><small>开放完整人物档案库，纯粹按性格匹配</small></span></button>
+  </div>
+</div>
+
+<div id="quiz" class="wrap hidden">
+  <div class="bar"><span id="pbar"></span></div>
+  <div class="qmeta"><span id="chap">⚖️ 决策方式</span><span id="qnum">1 / 8</span></div>
+  <h2 class="qtext" id="qtext"></h2>
+  <div class="opts" id="opts"></div>
+</div>
+
+<div id="result" class="wrap hidden">
+  <div class="kicker">MATCH RESULT · 你的历史人物匹配结果</div>
+  <div class="rname" id="rname"></div>
+  <div class="rmeta" id="rmeta"></div>
+  <div class="pill" id="rpill"></div>
+  <div class="quote"><span>人物心声</span><i id="rquote"></i></div>
+
+  <h3>01 · 八维能力结构</h3>
+  <div id="bars"></div>
+
+  <h3>02 · 你与 TA 的共同底色</h3>
+  <p class="note" id="common"></p>
+
+  <h3>03 · 现实中的你</h3>
+  <p class="note" id="real"></p>
+
+  <button class="ghost" id="again">重新测试</button>
+</div>
+
+<script>
+(function(){
+  var DIMS=["决断","共情","开创","洞察","表达","经营","独立","担当"];
+  var CODE="8888";
+
+  var PEOPLE=[
+    {n:"秦始皇",g:"male",e:"秦 · 帝王",v:[95,30,88,82,58,80,92,86],q:"天下之事，无小大皆决于上。"},
+    {n:"诸葛亮",g:"male",e:"蜀汉 · 丞相",v:[78,72,70,95,80,85,60,92],q:"鞠躬尽瘁，死而后已。"},
+    {n:"苏轼",g:"male",e:"北宋 · 文士",v:[62,88,75,80,96,65,85,60],q:"回首向来萧瑟处，也无风雨也无晴。"},
+    {n:"李白",g:"male",e:"唐 · 诗人",v:[72,66,92,78,95,55,96,58],q:"天生我材必有用。"},
+    {n:"张骞",g:"male",e:"西汉 · 使节",v:[82,70,96,84,66,72,88,80],q:"凿空西域，始于此行。"},
+    {n:"管仲",g:"male",e:"春秋 · 齐国相",v:[76,74,80,88,70,97,62,78],q:"仓廪实而知礼节。"},
+    {n:"王阳明",g:"male",e:"明 · 大儒",v:[80,78,86,96,82,66,88,76],q:"知行合一，事上磨炼。"},
+    {n:"武则天",g:"female",e:"唐 · 女皇",v:[93,55,90,86,72,88,90,84],q:"朕即天下。"},
+    {n:"李清照",g:"female",e:"南宋 · 词人",v:[58,90,62,85,94,60,88,55],q:"生当作人杰，死亦为鬼雄。"},
+    {n:"班昭",g:"female",e:"东汉 · 学者",v:[66,80,60,92,84,70,78,72],q:"谦让者，德之基也。"},
+    {n:"花木兰",g:"female",e:"北朝 · 巾帼",v:[80,82,65,72,60,66,80,96],q:"愿驰千里足，送儿还故乡。"},
+    {n:"长孙皇后",g:"female",e:"唐 · 皇后",v:[58,94,55,80,80,74,70,72],q:"以柔济刚，以静制动。"}
+  ];
+
+  var QS=[
+    {c:"⚖️ 决策方式",t:"局面混乱、信息不全，你被推到台前。第一件事是？",o:[
+      ["先定下主攻方向",0],["先问清各方顾虑",1],["先试一个很小的动作",2],["先把资源和成本算明白",5]]},
+    {c:"🚀 行动与变化",t:"旧办法已经走不通了，你更可能？",o:[
+      ["换一条思路，另起一行",2],["稳住基本盘，慢慢改",5],["说服关键的人一起走",4],["自己先把后果扛下来",7]]},
+    {c:"🏛️ 资源与责任",t:"手上只有三分资源，却要办十分的事。",o:[
+      ["集中火力压在一处",0],["借力整合别人的资源",5],["先做最小可行的一步",2],["讲清难处，求一个同盟",1]]},
+    {c:"🔭 判断与洞察",t:"众人都说这是机会，你却闻到一丝不对。",o:[
+      ["相信直觉，先停手",3],["收集反证再决定",3],["先算一遍最坏结果",5],["不解释，按自己判断走",6]]},
+    {c:"🌊 压力与转折",t:"事情砸了，责任确实在你。",o:[
+      ["立刻认下并开始补救",7],["先稳住团队的情绪",1],["复盘追到真正的根因",3],["一个人消化，不对外解释",6]]},
+    {c:"🤝 人际协作",t:"队友和你意见相反，而且他很在意。",o:[
+      ["先把我的逻辑讲清楚",4],["先听懂他真正在意什么",1],["另找一个第三方案",2],["各走一段，用结果说话",6]]},
+    {c:"🧠 思考与表达",t:"一个模糊的感受，你想让它被看见。",o:[
+      ["写成文字或作品",4],["找数据和证据支撑",3],["做成能落地的东西",2],["说给能听懂的人",1]]},
+    {c:"🧭 边界与担当",t:"热闹的场合里，你更想做什么？",o:[
+      ["守住自己的节奏",6],["照顾到在场的每个人",1],["接住最麻烦的那件事",7],["看清谁在真正主导",3]]}
+  ];
+
+  var COMMON={
+    "决断":"在需要做决定时，你倾向于收束噪音、抓住主线，然后不再回头。",
+    "共情":"你能感知他人的处境，并把关系本身当成局面的一部分来计算。",
+    "开创":"旧答案解决不了问题时，你敢于另起一行，而不是在原地优化。",
+    "洞察":"你相信真正的答案藏在表象背后的规律里，所以愿意多看一眼。",
+    "表达":"你擅长让模糊的感受与想法获得清晰的形状，并且被人接住。",
+    "经营":"你能看见资源的组合方式，也愿意为一件长期的事反复算账。",
+    "独立":"你有一套不轻易被外界带走的内在坐标，热闹不等于值得。",
+    "担当":"越到关键时刻，你越愿意站出来承担，哪怕代价落在自己身上。"
+  };
+
+  var state={gender:null,i:0,a:[]};
+  var $=function(s){return document.querySelector(s)};
+  var lock=$("#lock"),intro=$("#intro"),pref=$("#pref"),quiz=$("#quiz"),result=$("#result");
+  function show(el){[lock,intro,pref,quiz,result].forEach(function(x){x.classList.add("hidden")});el.classList.remove("hidden");window.scrollTo({top:0,behavior:"smooth"})}
+
+  function unlock(){
+    var v=($("#code").value||"").trim();
+    if(v!==CODE){$("#err").textContent="访问码不正确，请重新输入";return}
+    $("#err").textContent="";show(intro);
+  }
+  $("#unlock").addEventListener("click",unlock);
+  $("#code").addEventListener("keydown",function(e){if(e.key==="Enter")unlock()});
+
+  $("#start").addEventListener("click",function(){show(pref)});
+  Array.prototype.forEach.call(document.querySelectorAll(".gender"),function(b){
+    b.addEventListener("click",function(){state.gender=b.getAttribute("data-g");state.i=0;state.a=[];show(quiz);render()});
+  });
+
+  function render(){
+    var q=QS[state.i];
+    $("#pbar").style.width=Math.round((state.i+1)/QS.length*100)+"%";
+    $("#chap").textContent=q.c;
+    $("#qnum").textContent=(state.i+1)+" / "+QS.length;
+    $("#qtext").textContent=q.t;
+    var box=$("#opts");box.innerHTML="";
+    var letters=["A","B","C","D"];
+    q.o.forEach(function(op,idx){
+      var btn=document.createElement("button");
+      btn.className="opt";
+      btn.innerHTML='<span class="k">'+letters[idx]+'</span><span>'+op[0]+'</span>';
+      btn.addEventListener("click",function(){answer(op[1])});
+      box.appendChild(btn);
+    });
+  }
+
+  function answer(dim){
+    state.a.push(dim);
+    if(state.i<QS.length-1){state.i++;setTimeout(render,120)}
+    else finish();
+  }
+
+  function finish(){
+    var raw=DIMS.map(function(){return 12});
+    state.a.forEach(function(d){raw[d]+=9});
+    var max=Math.max.apply(null,raw),min=Math.min.apply(null,raw);
+    var scores=raw.map(function(v){return Math.round(38+(v-min)/((max-min)||1)*60)});
+
+    var pool=PEOPLE.filter(function(p){return state.gender==="all"||p.g===state.gender});
+    if(!pool.length)pool=PEOPLE;
+    var best=pool[0],bd=1e9;
+    pool.forEach(function(p){
+      var d=Math.sqrt(p.v.reduce(function(s,x,i){return s+Math.pow(x-scores[i],2)},0));
+      if(d<bd){bd=d;best=p}
+    });
+
+    var sim=Math.max(76,Math.min(97,Math.round(100-bd/4.8)));
+    $("#rname").textContent=best.n;
+    $("#rmeta").textContent=best.e;
+    $("#rpill").textContent="相似度 "+sim+"%";
+    $("#rquote").textContent="「"+best.q+"」";
+
+    var bars="";
+    var sorted=DIMS.map(function(d,i){return{d:d,v:scores[i]}}).sort(function(a,b){return b.v-a.v});
+    sorted.forEach(function(o){
+      bars+='<div class="dim"><span class="lab">'+o.d+'</span><span class="track"><i data-w="'+o.v+'"></i></span><span class="val">'+o.v+'</span></div>';
+    });
+    $("#bars").innerHTML=bars;
+    var sorted2=sorted;
+    setTimeout(function(){
+      Array.prototype.forEach.call(document.querySelectorAll(".track i"),function(el){el.style.width=el.getAttribute("data-w")+"%"});
+    },30);
+
+    var top=sorted2.slice(0,2).map(function(x){return x.d});
+    $("#common").textContent=COMMON[top[0]]+" 同时，"+COMMON[top[1]].replace("你","你也");
+    $("#real").textContent="在现实里，你更适合做那个「"+top[0]+"型」的位置：把复杂局面收拢成一条能执行的路，再把结果交出来。别人记住你的，往往是这一点。";
+
+    show(result);
+  }
+
+  $("#again").addEventListener("click",function(){state.i=0;state.a=[];show(intro)});
+  window.scrollTo(0,0);
+})();
+</script>
+</body>
+</html>
